@@ -103,11 +103,10 @@ class SimpleTopo(Topo):
         self.addLink(Routers.R3, Routers.R4)
         self.addLink(Routers.R3, Routers.R5)
         self.addLink(Routers.R4, Routers.R5)
-        self.addLink(Routers.R5, Routers.R6)
 
-        maliciousRouter = self.addSwitch(ROGUE_AS_NAME)
+        maliciousRouter = self.addSwitch(Routers.R6)
         for i in range(num_hosts_per_as):
-            hostname = f'h{ROGUE_AS_NAME}-{j+1}'
+            hostname = f'h6-{i+1}'
             host = self.addNode(hostname)
             hosts.append(host)
             self.addLink(maliciousRouter, hostname)
@@ -118,6 +117,7 @@ class SimpleTopo(Topo):
 
 def getIP(hostname):
     AS, idx = hostname.replace('h', '').split('-')
+    print(AS, idx, hostname)
     AS = int(AS)
     if AS == 6:
         AS = 1
